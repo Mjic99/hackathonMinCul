@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block style %}
+	<link href="{{url_for('static', filename='cover.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<body class="text-center">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+  </header>
+
+  <main role="main" class="inner cover">
+    <a href="{{url_for('index')}}">
+      <img class="mb-4" src="{{url_for('static', filename='logo.png')}}" alt="" height="72">
+    </a>
+  </main>
+
+  <footer class="mastfoot mt-auto">
+		<p class="lead">
+			<a href="{{url_for('login_page')}}" class="btn btn-lg btn-secondary">Iniciar sesión</a>
+			<a href="#" class="btn btn-lg btn-primary">Registrarse</a>
+		</p>
+	</footer>
+	</div>
+</body>
+{% endblock %}

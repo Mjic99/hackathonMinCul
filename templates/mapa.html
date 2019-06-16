@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <body>
+		{% block head %}
+			{{ super() }}
+		{% endblock %}
+    <div class="container">
+			<div id="map"></div>
+			<script>
+				function initMap(){
+					var data;
+
+					var request = new XMLHttpRequest()
+					request.open('GET', '/obras', true)
+					request.onload = function() {
+						data = JSON.parse(this.response)
+						console.log(data);
+						var map;
+						var tauro = { lat:-12.0507554, lng:-77.0401561 }
+						map = new google.maps.Map(document.getElementById('map'), {
+							center: {lat:-12.0538357, lng:-77.0367477},
+							zoom: 14
+						});
+						
+						data.forEach((obra) => {
+							var contentString = obra['descripcion'];
+
+							if(obra['descripcion']=='CINE TAURO') contentString += '<br><a href="/obra/tauro">Ver más</a>'
+
+							var infowindow = new google.maps.InfoWindow({
+								content: contentString
+							});
+
+							var marker = new google.maps.Marker({position:{lat:parseFloat(obra['LATITUD']), lng:parseFloat(obra['LONGITUD'])}, map: map, title: contentString});
+							marker.addListener('click', function() {
+								infowindow.open(map, marker);
+							});
+						});
+					}
+					request.send()
+					}
+			</script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdmu4YYgKQKu-E32W8mXuEQJCv8c7J9o4&callback=initMap"
+			async defer></script>
+		</div>
+		{% block rightbar %}
+			{{ super() }}
+		{% endblock %}
+	</body>
+	{% endblock %}

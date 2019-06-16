@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block style %}
+	<link href="{{url_for('static', filename='blog.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+	<body>
+		{% block head %}
+			{{ super() }}
+		{% endblock %}
+    <div class="container">
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="row">
+					<a class="lang" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+						Estilo  <i class="arrow down"></i>
+					</a>
+					</div>
+					<div class="row">
+					<div class="collapse" id="collapseExample">
+							<ul class="list-group">
+								<li class="list-group-item"><input type="checkbox" class="form-check-input" id="exampleCheck1">
+									<label class="form-check-label" for="exampleCheck1">Prehispanico</label></li>
+								<li class="list-group-item"><input type="checkbox" class="form-check-input" id="exampleCheck1">
+									<label class="form-check-label" for="exampleCheck1">Colonial</label></li>
+								<li class="list-group-item"><input type="checkbox" class="form-check-input" id="exampleCheck1">
+									<label class="form-check-label" for="exampleCheck1">Republicano</label></li>
+								<li class="list-group-item"><input type="checkbox" class="form-check-input" id="exampleCheck1">
+									<label class="form-check-label" for="exampleCheck1">Neo colonial - Neo peruano</label></li>
+								<li class="list-group-item"><input type="checkbox" class="form-check-input" id="exampleCheck1">
+									<label class="form-check-label" for="exampleCheck1">Movimiento moderno</label></li>
+							</ul>
+					</div>
+					</div>
+					<div class="row">
+					<a class="lang" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+							Autor  <i class="arrow down"></i>
+						</a>
+					</div>
+					<div class="row">
+						<div class="collapse" id="collapseExample2">
+							<ul class="list-group">
+								<li class="list-group-item"><input type="checkbox" class="form-check-input" id="exampleCheck1">
+									<label class="form-check-label" for="exampleCheck1">Mario Bianco</label></li>
+								<li class="list-group-item"><input type="checkbox" class="form-check-input" id="exampleCheck1">
+									<label class="form-check-label" for="exampleCheck1">Enrique Seoane</label></li>
+								<li class="list-group-item"><input type="checkbox" class="form-check-input" id="exampleCheck1">
+									<label class="form-check-label" for="exampleCheck1">Walter Weberhofer</label></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-10">
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Buscar..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+						<div class="input-group-append">
+							<a onclick="toggle();"><span class="input-group-text" id="basic-addon2">Buscar</span></a>
+						</div>
+					</div>
+					<a href="{{url_for('obra')}}">
+						<div id="taurocard" class="card" style="width: 18rem; visibility: hidden">
+							<img src="{{url_for('static', filename='tauro-1.jpg')}}" class="card-img-top" alt="...">
+							<div class="card-body">
+								<p class="card-text">Cine Tauro</p>
+							</div>
+						</div>
+					</a>
+					<style>
+						a>i {
+						border: solid black;
+						border-width: 0 3px 3px 0;
+						display: inline-block;
+						padding: 3px;
+					}
+					.down {
+						transform: rotate(45deg);
+						-webkit-transform: rotate(45deg);
+					}
+					</style>
+					<script>
+						function toggle() {
+							var table = document.getElementById("taurocard");
+							table.style.visibility = "visible";
+						}
+					</script>
+				</div>
+			</div><br><br>
+		{% block rightbar %}
+			{{ super() }}
+		{% endblock %}
+	</body>
+{% endblock %}

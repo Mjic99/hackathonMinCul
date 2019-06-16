@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+		<meta name="generator" content="Jekyll v3.8.5">
+		<title>PaHis</title>
+
+		<!--<link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/blog/">-->
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+		<!-- Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use -->
+		<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+
+		<!--Font-->
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather" />
+
+		<!--Icons-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyDP4mF8cACK3oI7mA1Gak2GRhmLnOkCn9Q",
+				authDomain: "pahis-d3f4b.firebaseapp.com",
+				databaseURL: "https://pahis-d3f4b.firebaseio.com",
+				projectId: "pahis-d3f4b",
+				storageBucket: "pahis-d3f4b.appspot.com",
+				messagingSenderId: "787235694874",
+				appId: "1:787235694874:web:49a81c663aea0e72"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+		</script>
+
+		<style>
+			.bd-placeholder-img {
+				font-size: 1.125rem;
+				text-anchor: middle;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+			@media (min-width: 768px) {
+				.bd-placeholder-img-lg {
+					font-size: 3.5rem;
+				}
+			}
+			body {
+				background-image: url({{url_for('static', filename='bkgnd.png')}});
+				/*background-repeat: no-repeat;*/
+				background-size: cover;
+			}
+			#map {
+				height: 500px;
+			}
+			#vbar {
+				position: fixed;
+				bottom: 50%;
+				right: 0px;
+			}
+		</style>
+		<!-- Custom styles for this template -->
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		{% block style %} 
+			<link href="{{url_for('static', filename='blog.css')}}" rel="stylesheet">
+		{% endblock %}
+	</head>
+	{% block body %}
+  <body>
+		{% block head %}
+		<diV class="container-fluid">
+			<div class="row">
+				<div class="col-lg-10 col-md-10 col-sm-10"></div>
+				<div class="col-lg-2 col-md-2 col-sm-2">					
+					<nav class="nav d-flex justify-content-between">
+						<a class="p-2 lang" href="#">English</a>
+						<a class="p-2 lang" href="#">Español</a>
+					</nav>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-5 col-sm-6"></div>
+				<div class="col col-lg-6 col-md-7 col-sm-6">		
+					<nav class="justify-content-end">
+						<a class="p-2" href="{{url_for('index')}}">Inicio</a>
+						<a class="p-2" href="#">Quiénes somos</a>
+						<a class="p-2" href="#">Conoce más</a>
+						<a class="p-2" href="{{url_for('mapa')}}">MaPaHis</a>
+						<a class="p-2" href="#">InviertePaHis</a>
+						<a class="p-2" href="#">ChatPaHis</a>
+					</nav>
+				</diV>
+			</div>
+		</diV>
+		{% endblock %}
+    <div class="container">
+			<div id="map"></div>
+			<script>
+				var map;
+				function initMap() {
+					map = new google.maps.Map(document.getElementById('map'), {
+						center: {lat: -34.397, lng: 150.644},
+						zoom: 8
+					});
+				}
+			</script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdmu4YYgKQKu-E32W8mXuEQJCv8c7J9o4&callback=initMap"
+			async defer></script>
+		</div>
+		{% block rightbar %}
+		<div class="btn-group-vertical" id="vbar">
+			<button class="btn"><i class="fa fa-ticket-alt"></i></button>
+			<button class="btn"><i class="fa fa-facebook-square"></i></button>
+			<button class="btn"><i class="fa fa-lightbulb"></i></button>
+			<a href="{{url_for('alerta')}}"><button class="btn"><i class="fa fa-exclamation-triangle"></i></button></a>
+			<button class="btn"><i class="fa fa-university"></i></button>
+		</div>
+		{% endblock %}
+	</body>
+	{% endblock %}
+</html>
