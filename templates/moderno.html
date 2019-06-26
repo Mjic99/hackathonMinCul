@@ -6,81 +6,81 @@
 
 {% block body %}
 	<body>
+		{% block head %}
+			{{ super() }}
+		{% endblock %}
     <div class="container">
-			{% block head %}
-				{{ super() }}
-			{% endblock %}
-			<h1>Movimiento Moderno</h1>
-			<div class="row" style="padding-top: 50px;">
-					<div class="col">
-							<ul class="list-group" id="list2" style="opacity: 0; visibility: hidden; transition:visibility 0.3s linear,opacity 0.3s linear;">
-								<li class="list-group-item">Mario Bianco</li>
-								<li class="list-group-item">Enrique Seoane</li>
-								<li class="list-group-item">
-									<a style="color: #212529" href="{{url_for('autor')}}">Walter Weberhofer</a>
-								</li>
-								<li class="list-group-item">Mario Bianco</li>
-								<li class="list-group-item">Hector Velarde</li>
-							</ul>
-					</div>
-					<div class="col">
-							<ul class="list-group" id="list3" style="opacity: 0; visibility: hidden; transition:visibility 0.3s linear,opacity 0.3s linear;">
-								<li class="list-group-item">XIV - XVI</li>
-								<li class="list-group-item">XVI - XVIII</li>
-								<li class="list-group-item">XVIII - XIX</li>
-								<li class="list-group-item">XIX</li>
-								<li class="list-group-item">XX</li>
-							</ul>
-					</div>
-					<div class="col">
-							<ul class="list-group" id="list4" style="opacity: 0; visibility: hidden; transition:visibility 0.3s linear,opacity 0.3s linear;">
-								<li class="list-group-item">Cultural</li>
-								<li class="list-group-item">Educación</li>
-								<li class="list-group-item">Industrial</li>
-								<li class="list-group-item">Militar</li>
-								<li class="list-group-item">Deporte</li>
-							</ul>
-					</div>
-					<div class="col">
-							<ul class="list-group" id="list5" style="opacity: 0; visibility: hidden; transition:visibility 0.3s linear,opacity 0.3s linear;">
-								<li class="list-group-item">Breña</li>
-								<li class="list-group-item">Callao</li>
-								<li class="list-group-item">Cercado de Lima</li>
-								<li class="list-group-item">Chaclacayo</li>
-								<li class="list-group-item">Chorrillos</li>
-							</ul>
-					</div>
+		<h1>Movimiento Moderno</h1>
+		<div class="row" style="padding-top: 50px;">
+				<div class="col">
+						<ul class="list-group" id="list2" style="opacity: 0; visibility: hidden; transition:visibility 0.3s linear,opacity 0.3s linear;">
+							<li class="list-group-item">Mario Bianco</li>
+							<li class="list-group-item">Enrique Seoane</li>
+							<li class="list-group-item">
+								<a style="color: #212529" href="{{url_for('autor')}}">Walter Weberhofer</a>
+							</li>
+							<li class="list-group-item">Mario Bianco</li>
+							<li class="list-group-item">Hector Velarde</li>
+						</ul>
 				</div>
-				<div class="py-1 mb-2">
-						<div class="row">
-						<div class="col">
-							<a href="#list2" onclick="toggleList(this);">Autor</a>
-						</div>
-						<div class="col">
-							<a href="#list3" onclick="toggleList(this);">Periodo</a>
-						</div>
-						<div class="col">
-							<a href="#list4" onclick="toggleList(this);">Uso</a>
-						</div>
-						<div class="col">
-							<a href="#list5" onclick="toggleList(this);">Lugar</a>
-						</div>
-						</div>	
+				<div class="col">
+						<ul class="list-group" id="list3" style="opacity: 0; visibility: hidden; transition:visibility 0.3s linear,opacity 0.3s linear;">
+							<li class="list-group-item">XIV - XVI</li>
+							<li class="list-group-item">XVI - XVIII</li>
+							<li class="list-group-item">XVIII - XIX</li>
+							<li class="list-group-item">XIX</li>
+							<li class="list-group-item">XX</li>
+						</ul>
+				</div>
+				<div class="col">
+						<ul class="list-group" id="list4" style="opacity: 0; visibility: hidden; transition:visibility 0.3s linear,opacity 0.3s linear;">
+							<li class="list-group-item">Cultural</li>
+							<li class="list-group-item">Educación</li>
+							<li class="list-group-item">Industrial</li>
+							<li class="list-group-item">Militar</li>
+							<li class="list-group-item">Deporte</li>
+						</ul>
+				</div>
+				<div class="col">
+						<ul class="list-group" id="list5" style="opacity: 0; visibility: hidden; transition:visibility 0.3s linear,opacity 0.3s linear;">
+							<li class="list-group-item">Breña</li>
+							<li class="list-group-item">Callao</li>
+							<li class="list-group-item">Cercado de Lima</li>
+							<li class="list-group-item">Chaclacayo</li>
+							<li class="list-group-item">Chorrillos</li>
+						</ul>
+				</div>
+			</div>
+			<div class="py-1 mb-2">
+					<div class="row">
+					<div class="col">
+						<a href="#list2" onclick="toggleList(this);">Autor</a>
 					</div>
-					<script>
-						function toggleList(title) {
-							var table = document.querySelector(title.getAttribute("href"));
-							console.log(table);
-							if (table.style.visibility == "hidden") {
-								table.style.visibility = "visible";
-								table.style.opacity = 1;
-							}
-							else {
-								table.style.visibility = "hidden";
-								table.style.opacity = 0;
-							}
+					<div class="col">
+						<a href="#list3" onclick="toggleList(this);">Periodo</a>
+					</div>
+					<div class="col">
+						<a href="#list4" onclick="toggleList(this);">Uso</a>
+					</div>
+					<div class="col">
+						<a href="#list5" onclick="toggleList(this);">Lugar</a>
+					</div>
+					</div>	
+				</div>
+				<script>
+					function toggleList(title) {
+						var table = document.querySelector(title.getAttribute("href"));
+						console.log(table);
+						if (table.style.visibility == "hidden") {
+							table.style.visibility = "visible";
+							table.style.opacity = 1;
 						}
-					</script>
+						else {
+							table.style.visibility = "hidden";
+							table.style.opacity = 0;
+						}
+					}
+				</script>
 		</div>
 		{% block rightbar %}
 			{{ super() }}

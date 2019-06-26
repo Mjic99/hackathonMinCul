@@ -36,9 +36,23 @@ def login():
         flash('Datos incorrectos')
         return redirect(url_for('login_page'))
 
+@app.route("/signup", methods=['GET'])
+def signup_page():
+    return render_template('signup.html')
+    
+@app.route("/signup", methods=['POST'])
+def signup():
+    try:
+        user = auth.create_user_with_email_and_password(request.form['email'], request.form['password'])
+        return redirect(url_for('index'))
+    except:
+        flash('Error al crear cuenta')
+        return redirect(url_for('signup_page'))
+
 @app.route("/index", methods=['GET'])
 def index():
-    return render_template('index.html')
+    categorias = db.child('categorias').get().each()
+    return render_template('index.html', categorias=categorias)
 
 @app.route("/estilo/moderno")
 def estilo():
@@ -77,9 +91,23 @@ def api_obras():
 
     return resp
 
+@app.route('/search_api', methods = ['GET'])
+def search_api():
+    filtrados = []
+    obras = db.child("inmueblesLima").get()
+    for obra in obras.each():
+        if 'LATITUD' in obra.val() and 'LONGITUD' in obra.val():
+            filtrados.append(obra.val())
+    
+    resp = jsonify(filtrados)
+    resp.status_code = 200
+
+    return resp
+
 @app.route("/search")
 def search():
-    return render_template('search.html')
+    categorias = db.child('categorias').get().each()
+    return render_template('search.html', categorias=categorias)
 
 """
 /index con filtros js (buscador principal)
