@@ -68,52 +68,60 @@
 				</div>
 				<div class="col-lg-10">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" placeholder="Buscar..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+						<input id="query" type="text" class="form-control" placeholder="Buscar..." aria-label="Recipient's username" aria-describedby="basic-addon2">
 						<div class="input-group-append">
 							<a onclick="toggle();"><span class="input-group-text" id="basic-addon2">Buscar</span></a>
 						</div>
 					</div>
-					<a href="{{url_for('obra')}}">
-						<div id="taurocard" class="card" style="width: 18rem; visibility: hidden">
-							<img src="{{url_for('static', filename='tauro-1.jpg')}}" class="card-img-top" alt="...">
-							<div class="card-body">
-								<p class="card-text">Cine Tauro</p>
-							</div>
-						</div>
-					</a>
-					<style>
-						a>i {
-						border: solid black;
-						border-width: 0 3px 3px 0;
-						display: inline-block;
-						padding: 3px;
-					}
-					.down {
-						transform: rotate(45deg);
-						-webkit-transform: rotate(45deg);
-					}
-					</style>
-					<script>
-						function toggle() {
-							var http = new XMLHttpRequest();
-							var url = "url";
-							var params = JSON.stringify({ appoverGUID: approverGUID });
-							http.open("GET", '/search_api', true);
-
-							http.setRequestHeader("Content-type", "application/json; charset=utf-8");
-							http.setRequestHeader("Content-length", params.length);
-							http.setRequestHeader("Connection", "close");
-
-							request.onload = function() {
-								data = JSON.parse(this.response);
-								console.log(data);
-							}
-							
-							http.send(params);
-						}
-					</script>
+					<div class="row" id="tablero">
+					</div>
 				</div>
-			</div><br><br>
+			</div>
+			<style>
+				a>i {
+				border: solid black;
+				border-width: 0 3px 3px 0;
+				display: inline-block;
+				padding: 3px;
+			}
+			.down {
+				transform: rotate(45deg);
+				-webkit-transform: rotate(45deg);
+			}
+			</style>
+			<script>
+				function toggle() {
+					var http = new XMLHttpRequest();
+					var inputs = Array.from(document.getElementsByClassName('form-check-input'));
+					var query = document.getElementById('query').value;
+					var params = JSON.stringify(inputs.filter(elem => elem.checked).map(elem => parseInt(elem.id)));
+
+					http.open("GET", '/search_api?q=' + query + '&cats=' + encodeURIComponent(params), true);
+					http.onload = function() {
+						data = JSON.parse(this.response);
+						console.log(data);
+						document.getElementById('tablero').innerHTML = '';
+						data.slice(0, 100).forEach(obra => {
+							if (obra['FACHADA']) {
+								imagen = obra['FACHADA'];
+							}
+							else {
+								imagen = 'https://via.placeholder.com/286x240';
+							}
+							document.getElementById('tablero').innerHTML += `<a href="{{url_for('obra')}}" style="padding: 0.5rem;">
+								<div id="taurocard" class="card" style="width: 18rem">
+									<img src=`+ imagen + ` class="card-img-top" alt="...">
+									<div class="card-body">
+										<p class="card-text">`+ obra['descripcion'] + `</p>
+									</div>
+								</div>
+							</a>`;
+						});
+					}
+					http.send(params);
+				}
+			</script>
+			<br><br>
 		{% block rightbar %}
 			{{ super() }}
 		{% endblock %}

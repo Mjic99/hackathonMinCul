@@ -93,13 +93,17 @@ def api_obras():
 
 @app.route('/search_api', methods = ['GET'])
 def search_api():
-    filtrados = []
     obras = db.child("inmueblesLima").get()
-    for obra in obras.each():
-        if 'LATITUD' in obra.val() and 'LONGITUD' in obra.val():
-            filtrados.append(obra.val())
+    #es el array representado como string jxjxj
+    if request.args['cats'] == '[]':
+        categorias = list(map(lambda num: str(num), range(0,11)))
+    else:
+        categorias = request.args['cats']
+
+    filtrados = list(filter(lambda obra: obra.val()['codCategoria'] in categorias and request.args['q'].lower() in obra.val()['descripcion'].lower(), obras.each()))
+    lista = list(map(lambda obj: obj.val(), filtrados))
     
-    resp = jsonify(filtrados)
+    resp = jsonify(lista)
     resp.status_code = 200
 
     return resp
