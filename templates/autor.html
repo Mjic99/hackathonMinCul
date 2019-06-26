@@ -1,26 +1,53 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<style>
-			body {
-				background-image: url({{url_for('static', filename='autor.png')}});
-				background-repeat: no-repeat;
-				background-size: cover;
-			}
-			#cine {
-				position: absolute;
-				height: 100px;
-				width: 100px;
-				left: 70%;
-				top: 43%;
-			}
-		</style>
-	</head>
+{% extends 'base.html' %}
+
+{% block style %}
+	<link href="{{url_for('static', filename='blog.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
 	<body>
-			<div id="cine">
-				<a style="width: 100%; height:100%;" href="{{url_for('obra')}}">
-					<div style="width: 100%; height:100%;"></div>
-				</a>
+		{% block head %}
+			{{ super() }}
+		{% endblock %}
+    <div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<h2 style="color: #f5391c;">Walter Weberhofer</h2>
+					<img style="max-height:30rem" src="{{url_for('static', filename='walter.jpg')}}">
+					<p>Arquitecto del movimiento moderno conocido por su trabajo en espacialidades diferenciadas y obras únicas ubicadas en su mayoria en Santa María del Mar.</p>
+				</div>
+				<div class="col-lg-8">
+					<br>
+					<table class="table table-borderless">
+						<tbody>
+							<tr>
+								<td><img src="https://via.placeholder.com/150x150" class="d-block w-100" alt="..."></td>
+								<td></td>
+								<td><img src="https://via.placeholder.com/150x150" class="d-block w-100" alt="..."></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><a href="{{url_for('obra')}}"><img src="{{url_for('static', filename='tauro-1.jpg')}}" class="d-block w-100" alt="..."></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><img src="https://via.placeholder.com/150x150" class="d-block w-100" alt="..."></td>
+								<td></td>
+								<td><img src="https://via.placeholder.com/150x150" class="d-block w-100" alt="..."></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
+			<style>
+				td {
+					width: 33%;
+					padding: 0 !important;
+				}
+			</style>
+			<br><br>
+		{% block rightbar %}
+			{{ super() }}
+		{% endblock %}
 	</body>
-</html>
+{% endblock %}
